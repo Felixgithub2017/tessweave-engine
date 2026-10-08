@@ -28,4 +28,4 @@ Flow Inference 0.1.0a1 is an independent single-device text inference engine for
 
 ## Public hosting status
 
-The selected GitHub owner is `Felixgithub2017`; the intended repository name is `flow-inference`. A local Git commit is not a public release. Remote publication requires authenticated access and a verified remote push. PyPI publication is not part of this milestone.
+The public repository is [Felixgithub2017/flow-inference](https://github.com/Felixgithub2017/flow-inference). The first verified remote commit is `bb7c676925c5581a5d36dad9190295ae851b3c71` (2026-10-08). Its display brand is now TessWeave Engine; repository, package and CLI names remain compatible. Source publication is not GPU validation. No tagged release or PyPI publication is claimed by this milestone.

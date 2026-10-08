@@ -1,4 +1,8 @@
-# Flow Inference
+![TessWeave Engine — inspectable inference runtime](assets/brand/banner.svg)
+
+# TessWeave Engine
+
+Formerly **Flow Inference**. The repository `flow-inference`, Python package `flow_engine`, and `flow-inference` CLI stay compatible. TessWeave is the shared project identity; this repository is the independent inference runtime.
 
 An independent language-model inference engine for inspecting and improving low-concurrency latency. Flow owns the request scheduler, physical KV pages, prefix index, Transformer forward pass, greedy speculative verification and HTTP service. It does **not** delegate inference to vLLM, SGLang or `transformers.generate()`.
 
@@ -7,6 +11,17 @@ An independent language-model inference engine for inspecting and improving low-
 Local checks include CPU correctness, service, Arena qualification and campaign-safety tests, plus recorded real checkpoint validation. CUDA remains a separate, unpassed gate. Use the source checkout for the latest changes. Hosted CI and public publication are not implied by local test results.
 
 [中文手把手说明](docs/使用说明.md) · [Architecture and state walkthrough](docs/ARCHITECTURE.md) · [Validation evidence](validation/README.md) · [Benchmark protocol](docs/BENCHMARKS.md) · [Roadmap](docs/ROADMAP.md)
+
+## Engine and Studio
+
+| Project | Responsibility | Can run independently? |
+| --- | --- | --- |
+| **TessWeave Engine** (this repository) | Scheduler, paged KV storage, Transformer execution, inference kernels and HTTP serving | Yes; CLI or HTTP, no Studio dependency |
+| [**TessWeave Studio**](https://github.com/Felixgithub2017/model-workbench) (Model Workbench) | Model discovery, resource estimates, reviewed backend commands, deployment workflows, playground and experiment logs | Yes; also orchestrates third-party backends |
+
+Studio is the control plane; Engine is one experimental inference runtime. Studio's vLLM/SGLang/MLX adapters do **not** make those engines part of TessWeave Engine. Engine's architecture and hardware support remain independently validated.
+
+Today you can manually start Engine and register its loopback HTTP service in Studio. Dedicated Engine environment provisioning, one-click lifecycle control and native trace replay in Studio are **not implemented**. Read the [connection walkthrough and compatibility boundaries](docs/STUDIO.md).
 
 ## First H100 campaign
 

@@ -75,7 +75,7 @@ def create_app(engine, tokenizer, served_name="flow-model"):
         finally:
             await asyncio.to_thread(engine.close)
 
-    app = FastAPI(title="Flow Inference", version="0.1.0a1", lifespan=lifespan)
+    app = FastAPI(title="TessWeave Engine", version="0.1.0a1", lifespan=lifespan)
 
     @app.middleware("http")
     async def limit_body(request, call_next):

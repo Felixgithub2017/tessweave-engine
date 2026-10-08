@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="400" viewBox="0 0 1280 400" role="img" aria-labelledby="title desc">
+<title id="title">TessWeave Engine</title><desc id="desc">An inspectable engine for low-concurrency inference.. Original tensor-weave identity in cyan and violet.</desc>
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#070c18"/><stop offset="1" stop-color="#15243b"/></linearGradient><linearGradient id="beam"><stop stop-color="#65f5dc"/><stop offset="1" stop-color="#9295ff"/></linearGradient><pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#809cc5" stroke-opacity=".07"/></pattern></defs>
+<rect width="1280" height="400" rx="24" fill="url(#bg)"/><rect width="1280" height="400" rx="24" fill="url(#grid)"/>
+<path d="M0 1H1280" stroke="#65f5dc" stroke-opacity=".4"/>
+<g transform="translate(52 64)" fill="none" stroke="url(#beam)" stroke-width="9" stroke-linejoin="round"><path d="M0 0h22l16 19-16 19H0l17-19z"/><path d="M22 0h20l18 19-18 19H22"/></g>
+<text x="135" y="78" fill="#a7bbd9" font-family="Arial, sans-serif" font-size="13" letter-spacing="4">OPEN MODEL SYSTEMS</text>
+<text x="135" y="103" fill="#65f5dc" font-family="Arial, sans-serif" font-size="12" letter-spacing="2">INFERENCE RUNTIME / RESEARCH PREVIEW</text>
+<text x="52" y="200" fill="#f2f7ff" font-family="Arial, sans-serif" font-weight="700" font-size="68" letter-spacing="-2">TessWeave</text>
+<text x="56" y="250" fill="#a5b6da" font-family="Arial, sans-serif" font-size="30" letter-spacing="8">ENGINE</text>
+<text x="56" y="321" fill="#bdcce0" font-family="Arial, sans-serif" font-size="18">An inspectable engine for low-concurrency inference.</text>
+<g transform="translate(836 66)">
+<path d="M0 55h85l70 70h141M0 125h296M0 195h85l70-70" fill="none" stroke="#324661" stroke-width="2"/>
+<path d="M40 55h45l70 70h90M28 195h57l70-70" fill="none" stroke="url(#beam)" stroke-width="3"/>
+<g fill="#13293b" stroke="#65f5dc" stroke-width="1.5"><rect x="0" y="38" width="34" height="34" rx="5"/><rect x="0" y="108" width="34" height="34" rx="5"/><rect x="0" y="178" width="34" height="34" rx="5"/></g>
+<path d="m153 58 67 67-67 67-67-67z" fill="#14283b" stroke="url(#beam)" stroke-width="2"/>
+<path d="m139 100 25 25-25 25m22-50 25 25-25 25" fill="none" stroke="url(#beam)" stroke-width="6"/>
+<rect x="271" y="109" width="32" height="32" rx="6" fill="#65f5dc"/>
+<text x="0" y="263" fill="#839bbd" font-family="monospace" font-size="12" letter-spacing="2">PAGES / SCHEDULE / COMPUTE</text>
+</g></svg>
