@@ -14,7 +14,8 @@ These project-authored SVG assets use the repository's MIT license. Do not use t
 
 | Display name | Repository | Existing command/module |
 | --- | --- | --- |
-| TessWeave Engine | `Felixgithub2017/flow-inference` | `flow-inference`, `python -m flow_engine.cli` |
-| TessWeave Studio | `Felixgithub2017/model-workbench` | `model-workbench`, `python -m workbench` |
+| TessWeave Engine | `Felixgithub2017/tessweave-engine` | `flow-inference`, `python -m flow_engine.cli` |
+| TessWeave Studio | `Felixgithub2017/tessweave-studio` | `model-workbench`, `python -m workbench` |
+| TessWeave Train | `Felixgithub2017/tessweave-train` | `tessweave-train`, `python -m tessweave_train.cli` |
 
-No repository move, import rename, state migration, metric rename or CLI break is included in this visual identity change. Historical logs, filenames and the system-report draft may retain “Flow Inference” or “Model Workbench”; these refer to the same respective projects. Neither product requires the other to be installed.
+On 2026-10-08, the GitHub repositories were renamed from `flow-inference` and `model-workbench` to `tessweave-engine` and `tessweave-studio`. Local checkout folders, imports, state, metrics and existing CLI commands remain unchanged. Historical logs, filenames and the system-report draft may retain “Flow Inference” or “Model Workbench”; these refer to the same respective projects. The projects do not require one another to be installed. Train integration remains a roadmap item.

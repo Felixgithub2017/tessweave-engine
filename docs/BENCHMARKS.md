@@ -1,6 +1,6 @@
 # Fair inference comparison
 
-The goal is lower latency at the **same output policy and model quality**, not merely a faster HTTP response. No comparison against vLLM or SGLang has been measured in the current release.
+The goal is lower latency and higher concurrent throughput at the **same output policy and model quality**, not merely a faster HTTP response. No comparison against vLLM or SGLang has been measured in the current release.
 
 ## Correctness gate
 
@@ -21,7 +21,9 @@ Run these independently:
 5. Flow ablations: packed/unpacked linears; prefix off/on; draft 0/2/4/8; SDPA/Triton on qualified CUDA.
 6. Upstream normal optimized defaults AND matched-feature mechanism baselines. Do not disable useful upstream mechanisms just to create a victory.
 
-The bundled HTTP script runs **sequential requests only**. Concurrent-load experiments require a separate load driver and are not implied by its results. Four bundled cases are smoke inputs, not a representative benchmark corpus. Use at least 30 measured repetitions per case after controlled warmup and report confidence intervals and p50/p95 for serious claims; the bundled comparison does not compute confidence intervals.
+The bundled HTTP script supports **closed-loop concurrency** with `--concurrency 1/2/4/8/16/32` (run each value separately). It admits another request when a worker finishes, not at a fixed arrival rate. Total latency includes server-side queueing but not time waiting for a client worker. Thus it cannot establish open-loop overload behavior or arrival-rate SLOs. Four bundled cases are smoke inputs, not a representative benchmark corpus. Use at least 30 measured repetitions per case after controlled warmup and report confidence intervals and p50/p95 for serious claims; the bundled comparison does not compute confidence intervals.
+
+The report retains all failures. Summary throughput divides successful requests or authoritative output tokens by campaign wall time, including failures; it does not add overlapping durations. Percentiles use nearest rank over successful requests only. Report failure count alongside them. Use enough cases/repeats to sustain the selected concurrency; short campaigns include ramp-up and drain. Match concurrency between baselines and candidates; comparison refuses mismatched load levels. For a mixed-load experiment, provide short and long prompts in the workload and inspect per-case records, not only aggregate percentiles.
 
 ## Measure a running service
 

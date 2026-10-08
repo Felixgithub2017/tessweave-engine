@@ -1,6 +1,12 @@
 # Evidence driven engine roadmap
 
-The first release is an independent execution substrate, not a claim to replace mature serving systems. Low-concurrency latency is the initial product target. Paging, caching and speculative decoding are established techniques; originality must come from a demonstrated new policy/kernel/design with controlled evidence.
+The first release is an independent execution substrate, not a claim to replace mature serving systems. The target is fast individual responses AND efficient concurrent serving. Low load is one experiment axis, not a product boundary. Paging, caching and speculative decoding are established techniques; originality must come from a demonstrated new policy/kernel/design with controlled evidence.
+
+## Performance contract across load levels
+
+Evaluate closed-loop client concurrency 1/2/4/8/16/32 separately, including mixed prompt lengths. Report client first-text and total latency p50/p95, completed requests/s, authoritative output tokens/s, failures and device-memory peaks. Compare equal model, precision, hardware and output policy. Saturation tests must additionally use an open-loop arrival-rate driver; the bundled closed-loop tool cannot establish an arrival-rate SLO.
+
+An optimization must disclose its whole latency-throughput tradeoff, including single-request regressions and long-prompt starvation. No single speedup number qualifies a change. Future scheduling should coordinate prefill budget, decode batch size, speculative work and KV pressure with measured queue age. These joint policies are research work, not currently implemented guarantees.
 
 ## Current implemented baseline
 

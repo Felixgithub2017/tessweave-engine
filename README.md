@@ -2,9 +2,11 @@
 
 # TessWeave Engine
 
-Formerly **Flow Inference**. The repository `flow-inference`, Python package `flow_engine`, and `flow-inference` CLI stay compatible. TessWeave is the shared project identity; this repository is the independent inference runtime.
+Formerly **Flow Inference**. The repository is now **[tessweave-engine](https://github.com/Felixgithub2017/tessweave-engine)**. The Python package `flow_engine` and `flow-inference` CLI remain compatible; existing local checkout directories do not need to be renamed. TessWeave is the shared project identity; this repository is the independent inference runtime.
 
-An independent language-model inference engine for inspecting and improving low-concurrency latency. Flow owns the request scheduler, physical KV pages, prefix index, Transformer forward pass, greedy speculative verification and HTTP service. It does **not** delegate inference to vLLM, SGLang or `transformers.generate()`.
+An independent language-model inference engine targeting **fast individual responses and efficient concurrent serving**. Optimize request latency, throughput and tail latency together, under a fixed correctness and memory budget. Flow owns the request scheduler, physical KV pages, prefix index, Transformer forward pass, greedy speculative verification and HTTP service. It does **not** delegate inference to vLLM, SGLang or `transformers.generate()`.
+
+Single-request speed is a priority, not a concurrency limit. Continuous batching is already implemented; competitive performance across load levels remains to be measured. The HTTP benchmark supports bounded concurrent clients and reports latency percentiles, aggregate throughput and failures. See [evaluation contracts](docs/BENCHMARKS.md).
 
 **Status: 0.1.0a1, pre-alpha.** Real Qwen2.5-0.5B-Instruct weights have passed CPU and Apple GPU FP32 forward/token checks against Transformers. CUDA kernels, large models and production reliability remain separate release gates. No faster-than-vLLM/SGLang claim is made. Reduced-precision output differences are documented, not hidden.
 
@@ -17,9 +19,11 @@ Local checks include CPU correctness, service, Arena qualification and campaign-
 | Project | Responsibility | Can run independently? |
 | --- | --- | --- |
 | **TessWeave Engine** (this repository) | Scheduler, paged KV storage, Transformer execution, inference kernels and HTTP serving | Yes; CLI or HTTP, no Studio dependency |
-| [**TessWeave Studio**](https://github.com/Felixgithub2017/model-workbench) (Model Workbench) | Model discovery, resource estimates, reviewed backend commands, deployment workflows, playground and experiment logs | Yes; also orchestrates third-party backends |
+| [**TessWeave Studio**](https://github.com/Felixgithub2017/tessweave-studio) (Model Workbench) | Model discovery, resource estimates, reviewed backend commands, deployment workflows, playground and experiment logs | Yes; also orchestrates third-party backends |
 
 Studio is the control plane; Engine is one experimental inference runtime. Studio's vLLM/SGLang/MLX adapters do **not** make those engines part of TessWeave Engine. Engine's architecture and hardware support remain independently validated.
+
+[**TessWeave Train**](https://github.com/Felixgithub2017/tessweave-train) is a separate post-training workflow project under development: goal-based guidance, dataset contracts, reviewed SFT/DPO/PPO/GRPO recipes and training logs through industrial backends. It is not part of this runtime, and Engine is not yet a validated RL rollout backend. Shared branding does not imply completed integration or shared model support.
 
 Today you can manually start Engine and register its loopback HTTP service in Studio. Dedicated Engine environment provisioning, one-click lifecycle control and native trace replay in Studio are **not implemented**. Read the [connection walkthrough and compatibility boundaries](docs/STUDIO.md).
 

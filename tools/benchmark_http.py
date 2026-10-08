@@ -1,11 +1,13 @@
-"""Sequential OpenAI-compatible service benchmark; DIRECT network only.
+"""Closed-loop OpenAI-compatible service benchmark; DIRECT network only.
 
 Reports first TEXT latency, NOT first token latency. SSE event gaps are not
 inter-token gaps. Failures, empty responses and missing usage invalidate a run.
 """
 import argparse
+from concurrent.futures import ThreadPoolExecutor
 import hashlib
 import json
+import math
 from pathlib import Path
 import statistics
 import time
@@ -57,6 +59,8 @@ def request_one(url, model, messages, max_tokens, timeout):
 def compare(a, b):
     invariants = ("model_digest", "tokenizer_digest", "dtype", "hardware", "cache_regime")
     problems = [k for k in invariants if a["manifest"].get(k) != b["manifest"].get(k)]
+    if a.get("concurrency", 1) != b.get("concurrency", 1):
+        problems.append("concurrency")
     if a["workload_sha256"] != b["workload_sha256"] or a["max_tokens"] != b["max_tokens"]:
         problems.append("workload/max_tokens")
     key = lambda r: (r["case"], r["repeat"])
@@ -75,6 +79,38 @@ def compare(a, b):
             "meaning": "Same-output wall latency; not pure decode TPS or statistical significance"}
 
 
+def summarize(records, wall_s):
+    """Rates use campaign wall time, not summed overlapping request time."""
+    good = [r for r in records if not r.get("error")]
+    def percentile(field, q):
+        values = sorted(r[field] for r in good)
+        return values[max(0, math.ceil(q * len(values)) - 1)] if values else None
+    return {"attempted": len(records), "completed": len(good),
+            "failed": len(records) - len(good), "wall_s": wall_s,
+            "completed_requests_per_s": len(good) / wall_s if wall_s > 0 else None,
+            "output_tokens_per_s": sum(r["usage"]["completion_tokens"] for r in good) / wall_s if wall_s > 0 else None,
+            "first_text_p50_s": percentile("first_text_s", .50),
+            "first_text_p95_s": percentile("first_text_s", .95),
+            "total_p50_s": percentile("elapsed_s", .50),
+            "total_p95_s": percentile("elapsed_s", .95),
+            "percentile_method": "nearest rank, successful requests only; inspect failures too"}
+
+
+def run_load(cases, repeats, concurrency, request):
+    def execute(item):
+        i, c = item
+        try:
+            row = request(c["messages"])
+        except Exception as exc:
+            row = {"error": str(exc)}
+        return {"case": c["id"], "repeat": i, **row}
+    start = time.perf_counter()
+    # At most C HTTP requests in flight; worker completion admits the next case.
+    with ThreadPoolExecutor(max_workers=concurrency) as pool:
+        records = list(pool.map(execute, ((i, c) for i in range(repeats) for c in cases)))
+    return records, summarize(records, time.perf_counter() - start)
+
+
 def main():
     parser = argparse.ArgumentParser()
     sub = parser.add_subparsers(dest="command", required=True)
@@ -85,6 +121,7 @@ def main():
     p.add_argument("--manifest", required=True)
     p.add_argument("--output", required=True)
     p.add_argument("--repeats", type=int, default=3)
+    p.add_argument("--concurrency", type=int, default=1)
     p.add_argument("--max-tokens", type=int, default=64)
     p.add_argument("--timeout", type=float, default=120)
     p = sub.add_parser("compare")
@@ -99,6 +136,8 @@ def main():
         return
     if min(args.repeats, args.max_tokens, args.timeout) <= 0:
         parser.error("positive repeats/tokens/timeout required")
+    if not 1 <= args.concurrency <= 256:
+        parser.error("concurrency must be between 1 and 256")
     if urlparse(args.base_url).scheme not in {"http", "https"}:
         parser.error("HTTP(S) URL required")
     manifest = json.loads(Path(args.manifest).read_text())
@@ -109,20 +148,15 @@ def main():
     cases = [json.loads(line) for line in workload.splitlines() if line.strip()]
     if not cases or len({c["id"] for c in cases}) != len(cases):
         parser.error("Nonempty workload with unique case IDs required")
-    records = []
     out = Path(args.output)
     if out.exists():
         parser.error("Use a fresh output path")
-    for i in range(args.repeats):
-        for c in cases:
-            try:
-                row = request_one(args.base_url, args.model, c["messages"], args.max_tokens, args.timeout)
-            except Exception as exc:
-                row = {"error": str(exc)}
-            records.append({"case": c["id"], "repeat": i, **row})
-            print(c["id"], i, row.get("elapsed_s", row.get("error")), flush=True)
+    records, summary = run_load(cases, args.repeats, args.concurrency,
+                               lambda messages: request_one(args.base_url, args.model, messages, args.max_tokens, args.timeout))
+    print(json.dumps(summary, indent=2), flush=True)
     report = {"manifest": manifest, "workload_sha256": hashlib.sha256(workload).hexdigest(),
-              "max_tokens": args.max_tokens, "records": records}
+              "max_tokens": args.max_tokens, "records": records, "concurrency": args.concurrency,
+              "load_mode": "closed_loop", "summary": summary}
     out.parent.mkdir(parents=True, exist_ok=True)
     with out.open("x") as f:
         json.dump(report, f, ensure_ascii=False, indent=2)
