@@ -1,0 +1,9 @@
+{
+  "model_digest": "REPLACE with immutable model revision or checkpoint SHA256",
+  "tokenizer_digest": "REPLACE with tokenizer revision or SHA256",
+  "dtype": "REPLACE with actual execution dtype, not checkpoint storage dtype",
+  "hardware": "REPLACE with exact device, memory, driver and runtime",
+  "cache_regime": "REPLACE: disabled / warmed / cold-process (must actually enforce it)",
+  "engine_version": "REPLACE with exact engine version and commit",
+  "launch_command": "REPLACE with actual complete launch command excluding credentials"
+}

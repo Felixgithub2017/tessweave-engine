@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "flow-inference-engine"
+version = "0.1.0a1"
+description = "Independent, inspectable low-concurrency language model inference engine"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE", "NOTICE"]
+dependencies = ["torch>=2.5,<3", "transformers>=4.51,<5", "safetensors>=0.4", "fastapi>=0.110", "uvicorn>=0.29", "pydantic>=2"]
+
+[project.optional-dependencies]
+test = ["httpx>=0.27", "build>=1"]
+cuda = ["triton>=3.1; sys_platform == 'linux'"]
+staging = ["huggingface-hub>=0.30,<1", "requests>=2.32,<3"]
+
+[project.scripts]
+flow-inference = "flow_engine.cli:main"
+flow-inference-qualify = "flow_engine.qualification:main"
+
+[tool.setuptools.packages.find]
+include = ["flow_engine*"]
+
+[tool.setuptools.package-data]
+flow_engine = ["data/*.json"]

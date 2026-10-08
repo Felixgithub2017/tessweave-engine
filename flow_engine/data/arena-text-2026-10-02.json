@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "source": "https://arena.ai/leaderboard/text",
+  "leaderboard_date": "2026-10-02",
+  "checked_date": "2026-10-08",
+  "category": "Text / Overall",
+  "selection": "First 20 distinct checkpoint candidates with non-proprietary license labels, in published table order. Repository mapping is reviewed separately; this is a target list, not a support claim.",
+  "scope": "Text input and text output. Multimodal architectures still require their actual text backbone; image/audio/video inference is a separate gate.",
+  "deduplication": [{"arena_model": "deepseek-v4-pro-high-preview", "overall_rank": 72, "represented_by": "deepseek-v4-pro", "reason": "Serving/reasoning variant of the original V4-Pro family; exact Arena checkpoint identity is not published here. The dated 0813 release is retained separately."}],
+  "models": [
+    {"arena_model": "kimi-k3-max", "overall_rank": 16, "repo_id": "moonshotai/Kimi-K3", "arena_license": "Kimi K3 license", "mapping_note": "Max is a serving reasoning setting, not a separate weight download."},
+    {"arena_model": "mimo-v2.6-pro", "overall_rank": 26, "repo_id": "XiaomiMiMo/MiMo-V2.6-Pro-RL", "arena_license": "MIT", "mapping_note": "RL checkpoint candidate; RL versus MOPD equivalence to the Arena endpoint remains unverified."},
+    {"arena_model": "glm-5.3-max", "overall_rank": 27, "repo_id": "zai-org/GLM-5.3", "arena_license": "MIT", "mapping_note": "Max is a serving setting. Check repository license independently; Arena's label may differ."},
+    {"arena_model": "glm-5.2-max", "overall_rank": 32, "repo_id": "zai-org/GLM-5.2", "arena_license": "MIT", "mapping_note": "Max is a serving setting, not a separate checkpoint."},
+    {"arena_model": "deepseek-v4.1-flash-max", "overall_rank": 38, "repo_id": "deepseek-ai/DeepSeek-V4.1-Flash", "arena_license": "MIT", "mapping_note": "Max is a serving setting, not a separate checkpoint."},
+    {"arena_model": "glm-5.3-flash", "overall_rank": 41, "repo_id": "zai-org/GLM-5.3-Flash", "arena_license": "MIT"},
+    {"arena_model": "mimo-v2.5-pro", "overall_rank": 49, "repo_id": "XiaomiMiMo/MiMo-V2.5-Pro", "arena_license": "MIT"},
+    {"arena_model": "glm-5.1", "overall_rank": 55, "repo_id": "zai-org/GLM-5.1", "arena_license": "MIT"},
+    {"arena_model": "deepseek-v4-pro-high-20260813", "overall_rank": 56, "repo_id": "deepseek-ai/DeepSeek-V4-Pro-0813", "arena_license": "MIT", "mapping_note": "Dated checkpoint, not merged into the original V4-Pro release."},
+    {"arena_model": "kimi-k2.6", "overall_rank": 58, "repo_id": "moonshotai/Kimi-K2.6", "arena_license": "Modified MIT"},
+    {"arena_model": "deepseek-v4-pro", "overall_rank": 62, "repo_id": "deepseek-ai/DeepSeek-V4-Pro", "arena_license": "MIT"},
+    {"arena_model": "glm-5", "overall_rank": 63, "repo_id": "zai-org/GLM-5", "arena_license": "MIT"},
+    {"arena_model": "hy3", "overall_rank": 67, "repo_id": "tencent/Hy3", "arena_license": "Apache 2.0"},
+    {"arena_model": "gemma-4-31b", "overall_rank": 76, "repo_id": "google/gemma-4-31B-it", "arena_license": "Apache 2.0", "mapping_note": "Instruction-tuned checkpoint, not the base checkpoint."},
+    {"arena_model": "mimo-v2.6-flash", "overall_rank": 77, "repo_id": "XiaomiMiMo/MiMo-V2.6-Flash-RL", "arena_license": "MIT", "mapping_note": "RL checkpoint candidate; RL versus MOPD equivalence to the Arena endpoint remains unverified."},
+    {"arena_model": "kimi-k2.5-thinking", "overall_rank": 78, "repo_id": "moonshotai/Kimi-K2.5", "arena_license": "Modified MIT", "mapping_note": "Thinking is a serving mode; instant uses the same model family."},
+    {"arena_model": "qwen3.5-397b-a17b", "overall_rank": 92, "repo_id": "Qwen/Qwen3.5-397B-A17B", "arena_license": "Apache 2.0"},
+    {"arena_model": "glm-4.7", "overall_rank": 93, "repo_id": "zai-org/GLM-4.7", "arena_license": "MIT"},
+    {"arena_model": "inkling", "overall_rank": 95, "repo_id": "thinkingmachines/Inkling", "arena_license": "Apache 2.0"},
+    {"arena_model": "minimax-m3", "overall_rank": 96, "repo_id": "MiniMaxAI/MiniMax-M3", "arena_license": "MiniMax Community License"}
+  ]
+}

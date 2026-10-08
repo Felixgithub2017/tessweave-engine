@@ -1,0 +1,40 @@
+{
+  "ready": true,
+  "model": "flow-model",
+  "json_equals_sse": true,
+  "usage_equal": true,
+  "response": "KV Cache，即键值对缓存，是一种在计算机系统中用于",
+  "usage": {
+    "prompt_tokens": 35,
+    "completion_tokens": 16,
+    "total_tokens": 51
+  },
+  "first_text_s": 0.07260287506505847,
+  "request_elapsed_s": 0.3829115410335362,
+  "stats_after": {
+    "submitted": 3,
+    "finished": 3,
+    "cancelled": 0,
+    "failed": 0,
+    "generated_tokens": 33,
+    "prefill_tokens": 39,
+    "steps": 35,
+    "draft_proposed": 0,
+    "draft_accepted": 0,
+    "speculative_steps": 0,
+    "physical_blocks": 64,
+    "free_blocks": 61,
+    "cached_prefix_blocks": 3,
+    "prefix_hit_tokens": 32,
+    "evictions": 0,
+    "kv_allocated_bytes": 25165824,
+    "active": 0,
+    "waiting": 0,
+    "prefill_chunk": 16,
+    "ready": true,
+    "fatal": null,
+    "device": "cpu",
+    "attention": "sdpa"
+  },
+  "scope": "Local HTTP smoke, not a cross-engine benchmark"
+}

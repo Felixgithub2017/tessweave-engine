@@ -1,0 +1,9 @@
+# Observed local correctness environment, not a CUDA wheel/driver prescription.
+torch==2.12.1
+transformers==4.51.3
+safetensors==0.8.0
+fastapi==0.139.0
+uvicorn==0.50.2
+pydantic==2.10.6
+httpx==0.28.1
+numpy==1.26.4

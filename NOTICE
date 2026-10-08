@@ -1,0 +1,14 @@
+Flow Inference is an independently implemented research inference engine.
+Its Python runtime does not import or launch vLLM or SGLang.
+
+Design references include vLLM's paged KV and continuous scheduling, SGLang's
+prefix reuse and scheduling separation, and online softmax attention literature.
+Source review versions: vLLM v0.31.0, SGLang v0.5.21. See docs/SOURCES.md.
+This repository does not vendor their source or model weights.
+
+PyTorch, Transformers, Triton, FastAPI, safetensors and other dependencies retain
+their own licenses. Referenced model licenses apply separately to downloaded
+checkpoints. The MIT license here grants no rights to those weights.
+
+No affiliation with or endorsement by upstream teams is implied. This project
+does not claim global novelty for paging, prefix reuse, prompt lookup or fusion.

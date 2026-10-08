@@ -1,0 +1,4 @@
+{"id":"explain-zh","messages":[{"role":"user","content":"用三句话解释推理时的 KV Cache。"}]}
+{"id":"explain-en","messages":[{"role":"user","content":"Why can batch-one language model decoding be limited by memory bandwidth?"}]}
+{"id":"copy","messages":[{"role":"user","content":"Copy the following list exactly, without a preface: red green blue red green blue red green blue red green blue red green blue red green blue red green blue red green blue"}]}
+{"id":"code-edit","messages":[{"role":"user","content":"Rewrite this function changing only the variable name total to accumulator:\ndef sum_squares(items):\n    total = 0\n    for item in items:\n        total += item * item\n    return total"}]}
